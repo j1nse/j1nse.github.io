@@ -120,6 +120,27 @@ a {
   border: 1px inset #fff;
 }
 
+.about-avatar {
+  display: block;
+  width: min(100%, 240px);
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid #7b9ac7;
+  background: #fff;
+}
+
+.about-ad {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.about-music-player {
+  display: block;
+  max-width: 100%;
+  margin-top: 12px;
+  border: 0;
+}
+
 .button-row {
   display: flex;
   flex-wrap: wrap;
