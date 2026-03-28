@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WindowFrame from "../components/WindowFrame.astro";
+---
+
+<BaseLayout pageTitle="关于">
+  <Fragment slot="sidebar">
+    <WindowFrame title="站点说明">
+      <ul class="tree-view">
+        <li>新主站: j1nse.github.io</li>
+        <li>旧站来源: 3 套静态博客</li>
+        <li>目标: 统一迁移与整理</li>
+      </ul>
+    </WindowFrame>
+  </Fragment>
+
+  <WindowFrame title="关于这个项目">
+    <p>这个新博客不是简单换皮，而是把旧博客内容重新整理并收口到一个统一站点中。</p>
+    <p>
+      当前设计原则是把内容层和表现层拆开处理: Astro 负责文章生成、内容组织和页面路由，XP.css
+      负责 UI 语言与整体视觉框架。
+    </p>
+    <p>
+      迁移过程中会尽量保留旧文中的标题、日期、分类、标签、代码块、图片和引用，同时清理掉旧主题遗留的包装结构。
+    </p>
+  </WindowFrame>
+</BaseLayout>

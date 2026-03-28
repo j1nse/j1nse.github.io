@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WindowFrame from "../../components/WindowFrame.astro";
+import { getSortedPosts, groupPostsByField } from "../../lib/posts";
+
+const posts = await getSortedPosts();
+const tags = groupPostsByField(posts, "tags");
+---
+
+<BaseLayout pageTitle="标签">
+  <WindowFrame title="标签总览">
+    <div class="tag-cloud">
+      {
+        tags.map(([name, groupedPosts]) => (
+          <a class="tag-link" href={`/tags/${name}/`}>
+            #{name} ({groupedPosts.length})
+          </a>
+        ))
+      }
+    </div>
+  </WindowFrame>
+</BaseLayout>

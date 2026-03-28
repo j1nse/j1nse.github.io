@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WindowFrame from "../../components/WindowFrame.astro";
+import PostListItem from "../../components/PostListItem.astro";
+import { getSortedPosts } from "../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await getSortedPosts();
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts.filter((post) => post.data.tags.includes(tag))
+    }
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout pageTitle={`标签: ${tag}`}>
+  <WindowFrame title={`标签: ${tag}`}>
+    <div class="post-list">
+      {posts.map((post) => <PostListItem post={post} />)}
+    </div>
+  </WindowFrame>
+</BaseLayout>

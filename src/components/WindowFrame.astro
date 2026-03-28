@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string;
+  className?: string;
+}
+
+const { title, className = "" } = Astro.props;
+---
+
+<section class={`window window-frame ${className}`.trim()}>
+  <div class="title-bar">
+    <div class="title-bar-text">{title}</div>
+    <div class="title-bar-controls" aria-hidden="true">
+      <button type="button" aria-label="Minimize"></button>
+      <button type="button" aria-label="Maximize"></button>
+      <button type="button" aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,74 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  pageTitle?: string;
+  description?: string;
+}
+
+const {
+  pageTitle,
+  description = "j1nse 的新博客，使用 Astro 管内容，XP.css 管界面。"
+} = Astro.props;
+
+const title = pageTitle ? `${pageTitle} | j1nse's blog` : "j1nse's blog";
+const pathname = Astro.url.pathname;
+const navItems = [
+  { href: "/", label: "首页" },
+  { href: "/archives/", label: "归档" },
+  { href: "/categories/", label: "分类" },
+  { href: "/tags/", label: "标签" },
+  { href: "/about/", label: "关于" }
+];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://unpkg.com" />
+    <link rel="stylesheet" href="https://unpkg.com/xp.css" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="desktop-shell">
+      <header class="desktop-header">
+        <div class="brand-block">
+          <div class="brand-title">j1nse's blog</div>
+          <div class="brand-subtitle">Astro + XP.css · 旧博客迁移工程</div>
+        </div>
+        <nav class="task-nav" aria-label="Primary">
+          {
+            navItems.map((item) => (
+              <a
+                class={`task-button ${pathname === item.href ? "is-active" : ""}`.trim()}
+                href={item.href}
+              >
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+      </header>
+
+      <main class="desktop-layout">
+        <aside class="sidebar-stack">
+          <slot name="sidebar" />
+        </aside>
+        <section class="main-stack">
+          <slot />
+        </section>
+      </main>
+
+      <footer class="status-bar site-status">
+        <p class="status-bar-field">系统状态: Online</p>
+        <p class="status-bar-field">内容引擎: Astro</p>
+        <p class="status-bar-field">界面主题: XP.css</p>
+      </footer>
+    </div>
+  </body>
+</html>

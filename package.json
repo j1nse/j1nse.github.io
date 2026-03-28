@@ -1,0 +1,21 @@
+{
+  "name": "j1nse.github.io",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "migrate": "node ./scripts/migrate-posts.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.7.1",
+    "cheerio": "^1.1.2",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.8"
+  }
+}

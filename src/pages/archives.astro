@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WindowFrame from "../components/WindowFrame.astro";
+import {
+  formatDate,
+  getPostUrl,
+  getSortedPosts,
+  groupPostsByYear
+} from "../lib/posts";
+
+const posts = await getSortedPosts();
+const groupedPosts = [...groupPostsByYear(posts).entries()];
+---
+
+<BaseLayout pageTitle="归档">
+  <Fragment slot="sidebar">
+    <WindowFrame title="归档统计">
+      <p>共 {posts.length} 篇文章</p>
+      <ul class="tree-view">
+        {groupedPosts.map(([year, yearPosts]) => <li>{year}: {yearPosts.length} 篇</li>)}
+      </ul>
+    </WindowFrame>
+  </Fragment>
+
+  {
+    groupedPosts.map(([year, yearPosts]) => (
+      <WindowFrame title={`${year} 年`}>
+        <ul class="archive-list">
+          {yearPosts.map((post) => (
+            <li>
+              <a href={getPostUrl(post)}>{post.data.title}</a>
+              <span>{formatDate(post.data.publishDate)}</span>
+            </li>
+          ))}
+        </ul>
+      </WindowFrame>
+    ))
+  }
+</BaseLayout>

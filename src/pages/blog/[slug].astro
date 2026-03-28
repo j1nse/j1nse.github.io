@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WindowFrame from "../../components/WindowFrame.astro";
+import { formatDate, getPostSlug, getSortedPosts } from "../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await getSortedPosts();
+  return posts.map((post) => ({
+    params: { slug: getPostSlug(post) },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BaseLayout pageTitle={post.data.title} description={post.data.description}>
+  <Fragment slot="sidebar">
+    <WindowFrame title="文章信息">
+      <ul class="tree-view">
+        <li>发布时间: {formatDate(post.data.publishDate)}</li>
+        {
+          post.data.updatedDate && (
+            <li>更新时间: {formatDate(post.data.updatedDate)}</li>
+          )
+        }
+        <li>来源站点: {post.data.sourceSite}</li>
+      </ul>
+    </WindowFrame>
+
+    <WindowFrame title="分类与标签">
+      <div class="tag-cloud">
+        {
+          post.data.categories.map((category) => (
+            <a class="tag-link" href={`/categories/${category}/`}>
+              {category}
+            </a>
+          ))
+        }
+        {
+          post.data.tags.map((tag) => (
+            <a class="tag-link" href={`/tags/${tag}/`}>
+              #{tag}
+            </a>
+          ))
+        }
+      </div>
+    </WindowFrame>
+
+    {
+      post.data.legacyUrl && (
+        <WindowFrame title="原始链接">
+          <p>
+            <a href={post.data.legacyUrl} rel="noreferrer" target="_blank">
+              查看旧站页面
+            </a>
+          </p>
+        </WindowFrame>
+      )
+    }
+  </Fragment>
+
+  <WindowFrame title={post.data.title}>
+    <div class="post-detail-meta">
+      <span>{formatDate(post.data.publishDate)}</span>
+      <span>{post.data.sourceSite}</span>
+    </div>
+    <article class="article-content">
+      <Content />
+    </article>
+  </WindowFrame>
+</BaseLayout>

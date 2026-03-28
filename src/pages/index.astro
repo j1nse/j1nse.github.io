@@ -1,0 +1,108 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WindowFrame from "../components/WindowFrame.astro";
+import PostListItem from "../components/PostListItem.astro";
+import { getSortedPosts, groupPostsByField } from "../lib/posts";
+
+const posts = await getSortedPosts();
+const latestPosts = posts.slice(0, 8);
+const categoryGroups = groupPostsByField(posts, "categories").slice(0, 8);
+const tagGroups = groupPostsByField(posts, "tags").slice(0, 12);
+
+const sourceStats = [
+  "shequ123.github.io",
+  "old_blog",
+  "old_blog_2"
+].map((sourceSite) => ({
+  sourceSite,
+  count: posts.filter((post) => post.data.sourceSite === sourceSite).length
+}));
+---
+
+<BaseLayout pageTitle="首页">
+  <Fragment slot="sidebar">
+    <WindowFrame title="系统信息">
+      <p>新博客负责统一承接旧站内容。</p>
+      <ul class="tree-view">
+        <li>文章生成: Astro</li>
+        <li>界面风格: XP.css</li>
+        <li>当前文章数: {posts.length}</li>
+      </ul>
+    </WindowFrame>
+
+    <WindowFrame title="迁移来源">
+      <ul class="tree-view">
+        {
+          sourceStats.map((item) => (
+            <li>
+              {item.sourceSite} <strong>({item.count})</strong>
+            </li>
+          ))
+        }
+      </ul>
+    </WindowFrame>
+
+    <WindowFrame title="快速入口">
+      <div class="button-row">
+        <a class="task-button" href="/archives/">查看归档</a>
+        <a class="task-button" href="/categories/">分类总览</a>
+        <a class="task-button" href="/tags/">标签总览</a>
+      </div>
+    </WindowFrame>
+  </Fragment>
+
+  <WindowFrame title="欢迎来到新博客">
+    <div class="hero-grid">
+      <div>
+        <p>
+          这里是新的主站点。旧博客中的文章会逐步汇总到这里，并统一使用 Astro
+          做内容组织与静态生成。
+        </p>
+        <p>
+          UI 使用 XP.css，整体视觉会保持经典桌面系统风格，方便后续继续扩展个人主页、归档页和文章页。
+        </p>
+      </div>
+      <div class="facts-panel">
+        <p><strong>迁移目标</strong></p>
+        <ul class="tree-view">
+          <li>保留标题、日期、分类和标签</li>
+          <li>尽量保留原文格式和本地资源</li>
+          <li>把旧站内部链接改到新站</li>
+        </ul>
+      </div>
+    </div>
+  </WindowFrame>
+
+  <WindowFrame title="最新文章">
+    <div class="post-list">
+      {latestPosts.map((post) => <PostListItem post={post} />)}
+    </div>
+  </WindowFrame>
+
+  <div class="two-column-grid">
+    <WindowFrame title="分类">
+      <ul class="link-list">
+        {
+          categoryGroups.map(([name, groupedPosts]) => (
+            <li>
+              <a href={`/categories/${name}/`}>{name}</a>
+              <span>{groupedPosts.length} 篇</span>
+            </li>
+          ))
+        }
+      </ul>
+    </WindowFrame>
+
+    <WindowFrame title="高频标签">
+      <div class="tag-cloud">
+        {
+          tagGroups.map(([name, groupedPosts]) => (
+            <a class="tag-link" href={`/tags/${name}/`}>
+              #{name} ({groupedPosts.length})
+            </a>
+          ))
+        }
+      </div>
+    </WindowFrame>
+  </div>
+</BaseLayout>

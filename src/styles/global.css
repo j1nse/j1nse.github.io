@@ -1,0 +1,252 @@
+:root {
+  color-scheme: light;
+  --desktop-blue: #0a56cf;
+  --desktop-teal: #0f8d8a;
+  --desktop-shadow: rgba(14, 40, 98, 0.25);
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: "Tahoma", "Verdana", sans-serif;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.45), transparent 30%),
+    linear-gradient(135deg, #0b61d8 0%, #0b8ccf 45%, #0e9e77 100%);
+  background-attachment: fixed;
+}
+
+body {
+  color: #10233f;
+}
+
+a {
+  text-decoration-thickness: 1px;
+}
+
+.desktop-shell {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 20px 16px 28px;
+}
+
+.desktop-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.brand-block {
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.brand-title {
+  font-size: clamp(1.8rem, 2vw + 1rem, 2.8rem);
+  font-weight: 700;
+}
+
+.brand-subtitle {
+  margin-top: 4px;
+  font-size: 0.95rem;
+}
+
+.task-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.task-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0 12px;
+  border: 1px solid #003c74;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #fff 0%, #dcecff 100%);
+  color: #072d5a;
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+}
+
+.task-button.is-active {
+  background: linear-gradient(180deg, #d9ebff 0%, #b9d5ff 100%);
+}
+
+.desktop-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  gap: 16px;
+}
+
+.sidebar-stack,
+.main-stack {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.window-frame {
+  box-shadow: 0 12px 24px var(--desktop-shadow);
+}
+
+.window-body {
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.hero-grid,
+.two-column-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.hero-grid {
+  grid-template-columns: minmax(0, 1.7fr) minmax(240px, 1fr);
+}
+
+.two-column-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.facts-panel {
+  padding: 12px;
+  background: linear-gradient(180deg, #f6fbff 0%, #edf6ff 100%);
+  border: 1px inset #fff;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.post-list {
+  display: grid;
+  gap: 12px;
+}
+
+.post-entry {
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #9ab8df;
+}
+
+.post-entry:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.post-entry-title {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+}
+
+.post-entry-title a {
+  color: #003e7a;
+}
+
+.post-entry-meta,
+.post-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 0;
+  color: #50637f;
+  font-size: 0.9rem;
+}
+
+.post-entry-description {
+  margin: 8px 0;
+}
+
+.post-entry-taxonomy,
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border: 1px solid #7b9ac7;
+  border-radius: 999px;
+  background: #f7fbff;
+  color: #0c447b;
+  text-decoration: none;
+}
+
+.link-list,
+.archive-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.link-list li,
+.archive-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.link-list span,
+.archive-list span {
+  color: #5f718b;
+  white-space: nowrap;
+}
+
+.article-content {
+  margin-top: 16px;
+}
+
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  margin-top: 1.6em;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #7b9ac7;
+  background: #fff;
+}
+
+.article-content pre {
+  overflow-x: auto;
+}
+
+.article-content blockquote {
+  margin: 1.2em 0;
+  padding: 12px 16px;
+  border-left: 4px solid #0a56cf;
+  background: #f2f8ff;
+}
+
+.site-status {
+  position: sticky;
+  bottom: 10px;
+  margin-top: 16px;
+}
+
+@media (max-width: 900px) {
+  .desktop-layout,
+  .hero-grid,
+  .two-column-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .desktop-shell {
+    padding-inline: 12px;
+  }
+}

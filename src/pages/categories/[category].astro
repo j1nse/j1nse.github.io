@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WindowFrame from "../../components/WindowFrame.astro";
+import PostListItem from "../../components/PostListItem.astro";
+import { getSortedPosts } from "../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await getSortedPosts();
+  const categories = [...new Set(posts.flatMap((post) => post.data.categories))];
+
+  return categories.map((category) => ({
+    params: { category },
+    props: {
+      category,
+      posts: posts.filter((post) => post.data.categories.includes(category))
+    }
+  }));
+}
+
+const { category, posts } = Astro.props;
+---
+
+<BaseLayout pageTitle={`分类: ${category}`}>
+  <WindowFrame title={`分类: ${category}`}>
+    <div class="post-list">
+      {posts.map((post) => <PostListItem post={post} />)}
+    </div>
+  </WindowFrame>
+</BaseLayout>

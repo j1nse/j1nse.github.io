@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WindowFrame from "../../components/WindowFrame.astro";
+import { getSortedPosts, groupPostsByField } from "../../lib/posts";
+
+const posts = await getSortedPosts();
+const categories = groupPostsByField(posts, "categories");
+---
+
+<BaseLayout pageTitle="分类">
+  <WindowFrame title="分类总览">
+    <ul class="link-list">
+      {
+        categories.map(([name, groupedPosts]) => (
+          <li>
+            <a href={`/categories/${name}/`}>{name}</a>
+            <span>{groupedPosts.length} 篇</span>
+          </li>
+        ))
+      }
+    </ul>
+  </WindowFrame>
+</BaseLayout>

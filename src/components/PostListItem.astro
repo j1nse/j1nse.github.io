@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatDate, getPostUrl } from "../lib/posts";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+  showDescription?: boolean;
+}
+
+const { post, showDescription = true } = Astro.props;
+---
+
+<article class="post-entry">
+  <h3 class="post-entry-title">
+    <a href={getPostUrl(post)}>{post.data.title}</a>
+  </h3>
+  <p class="post-entry-meta">
+    <span>{formatDate(post.data.publishDate)}</span>
+    <span>来源: {post.data.sourceSite}</span>
+  </p>
+  {
+    showDescription && post.data.description && (
+      <p class="post-entry-description">{post.data.description}</p>
+    )
+  }
+  <div class="post-entry-taxonomy">
+    {
+      post.data.categories.map((category) => (
+        <a class="tag-link" href={`/categories/${category}/`}>
+          {category}
+        </a>
+      ))
+    }
+    {
+      post.data.tags.map((tag) => (
+        <a class="tag-link" href={`/tags/${tag}/`}>
+          #{tag}
+        </a>
+      ))
+    }
+  </div>
+</article>
