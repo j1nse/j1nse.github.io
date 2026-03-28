@@ -9,14 +9,12 @@ const latestPosts = posts.slice(0, 8);
 const categoryGroups = groupPostsByField(posts, "categories").slice(0, 8);
 const tagGroups = groupPostsByField(posts, "tags").slice(0, 12);
 
-const sourceStats = [
-  "shequ123.github.io",
-  "old_blog",
-  "old_blog_2"
-].map((sourceSite) => ({
-  sourceSite,
-  count: posts.filter((post) => post.data.sourceSite === sourceSite).length
-}));
+const sourceStats = [...new Set(posts.map((post) => post.data.sourceSite))].map(
+  (sourceSite) => ({
+    sourceSite,
+    count: posts.filter((post) => post.data.sourceSite === sourceSite).length
+  })
+);
 ---
 
 <BaseLayout pageTitle="首页">
@@ -30,7 +28,7 @@ const sourceStats = [
       </ul>
     </WindowFrame>
 
-    <WindowFrame title="迁移来源">
+    <WindowFrame title="内容来源">
       <ul class="tree-view">
         {
           sourceStats.map((item) => (
