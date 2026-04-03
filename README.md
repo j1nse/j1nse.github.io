@@ -36,3 +36,11 @@ npm run migrate
 - 将文章写入 `src/content/posts/`
 - 将旧站正文里引用到的本地资源复制到 `public/legacy-assets/`
 - 把能识别的旧站内部文章链接改写到新站 `/blog/.../`
+
+字符猫：
+
+```text
+ /\_/\\
+( o.o )
+ > ^ <
+```
