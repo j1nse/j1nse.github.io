@@ -44,3 +44,4 @@ npm run migrate
 ( o.o )
  > ^ <
 ```
+附记：英文名言 `Knowledge is power.` 的中文翻译是“知识就是力量”，作者是 Francis Bacon。
